@@ -98,8 +98,8 @@ export default function MCPTool() {
                 type="file"
                 multiple
                 style={{ display: 'none' }}
-                {...({ webkitdirectory: "true", directory: "" } as any)}
-                onChange={(e) => {
+                {...({ webkitdirectory: "true", directory: "" } as React.HTMLAttributes<HTMLInputElement>)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (e.target.files) {
                     setFiles(Array.from(e.target.files));
                     setError('');
