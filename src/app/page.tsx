@@ -93,26 +93,26 @@ export default function MCPTool() {
               {files.length === 0 ? '✅ Cache Empty' : '❌ Clear Files'}
             </button>
 
-            <label className="cursor-pointer bg-blue-700 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded inline-block text-center">
-              📁 Upload your Turbo project&apos;s src folder
-              <input
-                type="file"
-                multiple
-                style={{ display: 'none' }}
-                ref={(input) => {
-                  if (input instanceof HTMLInputElement) {
-                    input.webkitdirectory = true;
-                    (input as any).directory = true; // This one is non-standard but safe
-                  }
-                }}
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setFiles(Array.from(e.target.files));
-                    setError('');
-                  }
-                }}
-              />
-            </label>
+          <label className="cursor-pointer bg-blue-700 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded inline-block text-center">
+            📁 Upload your Turbo project&apos;s src folder
+            <input
+              type="file"
+              multiple
+              style={{ display: 'none' }}
+              ref={(input) => {
+                if (input instanceof HTMLInputElement) {
+                  input.webkitdirectory = true;
+                  (input as HTMLInputElement & { directory: boolean }).directory = true;
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.files) {
+                  setFiles(Array.from(e.target.files));
+                  setError('');
+                }
+              }}
+            />
+          </label>
           </div>
 
           {files.length > 0 && (
