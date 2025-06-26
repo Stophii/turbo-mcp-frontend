@@ -51,7 +51,6 @@ export default function MCPTool() {
         body: JSON.stringify({ question, files: fileContents }),
       });
 
-
       const data = await res.json();
 
       if (res.status === 429 || data?.error?.toLowerCase().includes("rate limit")) {
@@ -64,7 +63,7 @@ export default function MCPTool() {
       } else {
         setResponse(data.answer || "No answer returned.");
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Fetch failed:", err);
       setError("Error sending request.");
     } finally {
@@ -101,9 +100,9 @@ export default function MCPTool() {
                 multiple
                 style={{ display: 'none' }}
                 ref={(input) => {
-                  if (input) {
-                    (input as any).webkitdirectory = true;
-                    (input as any).directory = true;
+                  if (input instanceof HTMLInputElement) {
+                    input.webkitdirectory = true;
+                    (input as any).directory = true; // This one is non-standard but safe
                   }
                 }}
                 onChange={(e) => {
