@@ -44,11 +44,13 @@ export default function MCPTool() {
     );
 
     try {
-      const res = await fetch("http://localhost:3000/analyze", {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+      const res = await fetch(`${baseUrl}/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, files: fileContents }),
       });
+
 
       const data = await res.json();
 
